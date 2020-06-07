@@ -6,17 +6,21 @@ const PostSchema = new mongoose.Schema({
     emun: ['produtos', 'doar', 'receber']
   },
   material: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Material'
-    // (reference to selected material)
+    type: String,
+    enum: ['glass bottles', 'newspaper', 'white paper', 'cartboard', 'aluminum', 'plastic bottles']
   },
   location: {
     type: {
       type: String,
       default: 'Point'
     },
-    coordinates: [{ type: Number, min: -180, max: 180 }]
+    coordinates: [
+      {
+        type: Number,
+        min: -180,
+        max: 180
+      }
+    ]
   },
   description: {
     type: String,
@@ -30,11 +34,22 @@ const PostSchema = new mongoose.Schema({
     required: true,
     ref: 'User'
   },
-  // (reference to post creator id)
   timestamps: {
-    createdAt: 'createdDate',
-    updatedAt: 'updatedDate'
-  }
+    createdAt: {
+      type: Date,
+      default: Date.now
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now
+    }
+  },
+  comment: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment'
+    }
+  ]
 });
 
 PostSchema.index({ location: '2dsphere' });

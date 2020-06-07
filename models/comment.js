@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const CommentSchema = new mongoose.Schema({
-  nameCreator: {
+  userCreator: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User'
@@ -15,10 +15,15 @@ const CommentSchema = new mongoose.Schema({
     required: true,
     ref: 'Post'
   },
-  // (reference to post id)
   timestamps: {
-    createdAt: 'createdDate',
-    updatedAt: 'updatedDate'
+    createdAt: {
+      type: Date,
+      default: Date.now
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now
+    }
   }
 });
 const Comment = mongoose.model('Comment', CommentSchema);
