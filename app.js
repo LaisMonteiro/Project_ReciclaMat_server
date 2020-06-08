@@ -13,6 +13,7 @@ const commentRouter = require('./routes/comment');
 const postRouter = require('./routes/post');
 const usersRouter = require('./routes/users');
 const authenticationRouter = require('./routes/authentication');
+const cors = require('cors');
 
 const app = express();
 
@@ -21,11 +22,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors());
 app.use('/api/comment', commentRouter);
 app.use('/api/post', postRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/authentication', authenticationRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

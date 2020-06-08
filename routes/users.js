@@ -12,11 +12,13 @@ router.get('/', function (req, res, next) {
 
 router.post('', uploader.single('avatar'), async (req, res) => {
   try {
+    console.log(req.body);
     const { name, email, password } = req.body;
-    const avatar = req.file.url;
+    console.log(req.file);
+    const avatar = req.file.path;
     const passwordHash = await bcrypt.hash(password, 10);
 
-    const alredyExists = await User.find({email});
+    const alredyExists = await User.findOne({email});
     if(alredyExists) {
       throw new Error('User already exists'); 
     }
