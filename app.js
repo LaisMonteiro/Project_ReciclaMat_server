@@ -12,6 +12,8 @@ const mongoose = require('mongoose');
 const commentRouter = require('./routes/comment');
 const postRouter = require('./routes/post');
 const usersRouter = require('./routes/users');
+const authenticationRouter = require('./routes/authentication');
+const cors = require('cors');
 
 const app = express();
 
@@ -19,11 +21,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 app.use('/api/comment', commentRouter);
-app.use('/api/post', postRouter);
+app.use('/api/posts', postRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/authentication', authenticationRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -51,7 +55,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json('error');
 });
 
 module.exports = app;

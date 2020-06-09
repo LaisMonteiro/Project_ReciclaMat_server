@@ -8,38 +8,33 @@ router.get('/', function (req, res, next) {
   res.json({ message: 'POST API' });
 });
 
-router.post('/create', function (req, res) {
+router.post('/', function (req, res) {
   const {
     kind,
     material,
     location,
     description,
     image,
-    userCreator,
-    timestamps,
-    comment
+    userCreator
   } = req.body;
+  
   Post.create({
     kind,
     material,
     location,
     description,
     image,
-    userCreator,
-    timestamps,
-    comment
+    userCreator
   })
     .then((response) =>
-      res.status(200).json({
+      res.status(201).json({
         response: response,
         kind: kind,
         material: material,
         location: location,
         description: description,
         image: image,
-        userCreator: userCreator,
-        timestamps: timestamps,
-        comment: comment
+        userCreator: userCreator
       })
     )
     .catch((error) => res.status(400).json({ message: error.message }));
