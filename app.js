@@ -24,7 +24,7 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use('/api/comment', commentRouter);
-app.use('/api/post', postRouter);
+app.use('/api/posts', postRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/authentication', authenticationRouter);
 
