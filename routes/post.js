@@ -3,25 +3,23 @@
 const { Router } = require('express');
 const router = new Router();
 const Post = require('../models/post');
+const uploader = require('./../file-uploader');
 
 router.get('/', function (req, res, next) {
   res.json({ message: 'POST API' });
 });
 
-router.post('/', function (req, res) {
-  const {
-    kind,
-    material,
-    location,
-    description,
-    image,
-    userCreator
-  } = req.body;
-  
+router.post('/', uploader.single('avatar'), function (req, res) {
+  console.log(req.body);
+  const { kind, material, description, userCreator } = req.body;
+  const image = req.file.path;
+  const location = req.body.location.split(',');
+
+
   Post.create({
     kind,
     material,
-    location,
+    location: { coordinates: [location[0], location[1]] },
     description,
     image,
     userCreator
@@ -37,7 +35,10 @@ router.post('/', function (req, res) {
         userCreator: userCreator
       })
     )
-    .catch((error) => res.status(400).json({ message: error.message }));
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({ message: error.message });
+    });
 });
 
 module.exports = router;
