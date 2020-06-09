@@ -6,7 +6,11 @@ const Post = require('../models/post');
 const uploader = require('./../file-uploader');
 
 router.get('/', function (req, res, next) {
-  res.json({ message: 'POST API' });
+  Post.find()
+    .then((post) => {
+      res.json({ post });
+    })
+    .catch((error) => next(error));
 });
 
 router.post('/', uploader.single('image'), (req, res, next) => {

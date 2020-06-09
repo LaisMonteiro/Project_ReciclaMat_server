@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const connectMongo = require('connect-mongo');
 const mongoose = require('mongoose');
-
+const cors = require('cors');
 const commentRouter = require('./routes/comment');
 const postRouter = require('./routes/post');
 const usersRouter = require('./routes/users');
@@ -16,6 +16,14 @@ const authenticationRouter = require('./routes/authentication');
 const cors = require('cors');
 
 const app = express();
+
+//CORS config
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:3000'
+  })
+);
 
 app.use(logger('dev'));
 app.use(express.json());
