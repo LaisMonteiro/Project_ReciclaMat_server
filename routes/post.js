@@ -6,7 +6,10 @@ const Post = require('../models/post');
 const uploader = require('./../file-uploader');
 
 router.get('/', function (req, res, next) {
-  Post.find()
+  const kind = req.query.kind;
+
+  Post.find(kind ? { kind } : {})
+    .populate('userCreator')
     .then((post) => {
       res.json({ post });
     })
@@ -14,7 +17,14 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', uploader.single('image'), (req, res, next) => {
-  const { kind, material, description, userCreator, timestamps, updatedAt } = req.body;
+  const {
+    kind,
+    material,
+    description,
+    userCreator,
+    timestamps,
+    updatedAt
+  } = req.body;
   const image = req.file.path;
   const location = req.body.location.split(',');
   console.log('file is: ', req.file);
