@@ -9,20 +9,11 @@ router.get('/', function (req, res, next) {
   res.json({ message: 'POST API' });
 });
 
-<<<<<<< HEAD
-router.post('/', uploader.single('avatar'), function (req, res) {
-  console.log(req.body);
-  const { kind, material, description, userCreator } = req.body;
-  const image = req.file.path;
-  const location = req.body.location.split(',');
-
-=======
 router.post('/', uploader.single('image'), (req, res, next) => {
   const { kind, material, description, userCreator, timestamps, updatedAt } = req.body;
   const image = req.file.path;
   const location = req.body.location.split(',');
   console.log('file is: ', req.file);
->>>>>>> 4a4c385f0b6cc25e41fe71f550464bb6c5572a88
 
   Post.create({
     kind,
