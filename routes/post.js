@@ -5,7 +5,11 @@ const router = new Router();
 const Post = require('../models/post');
 
 router.get('/', function (req, res, next) {
-  res.json({ message: 'POST API' });
+  Post.find()
+    .then((post) => {
+      res.json({ post });
+    })
+    .catch((error) => next(error));
 });
 
 router.post('/create', function (req, res) {
