@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const connectMongo = require('connect-mongo');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const commentRouter = require('./routes/comment');
 const postRouter = require('./routes/post');
 const usersRouter = require('./routes/users');
@@ -33,7 +32,6 @@ app.use('/api/comment', commentRouter);
 app.use('/api/posts', postRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/authentication', authenticationRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
