@@ -12,6 +12,7 @@ const commentRouter = require('./routes/comment');
 const postRouter = require('./routes/post');
 const usersRouter = require('./routes/users');
 const authenticationRouter = require('./routes/authentication');
+const cors = require('cors');
 
 const app = express();
 
