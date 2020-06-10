@@ -9,32 +9,24 @@ router.get('/', function (req, res, next) {
   const kind = req.query.kind;
 
   Post.find(kind ? { kind } : {})
+    .sort({'timestamps.updatedAt': -1})
     .populate('userCreator')
     .then((posts) => {
-      res.json( posts );
+      res.json(posts);
     })
     .catch((error) => next(error));
 });
 
 router.post('/', uploader.single('image'), (req, res, next) => {
-  const {
-    kind,
-    material,
-    description,
-    userCreator,
-    timestamps,
-    updatedAt
-  } = req.body;
-  const image = req.file.path;
+  const { kind, material, description, userCreator } = req.body;
   const location = req.body.location.split(',');
-  console.log('file is: ', req.file);
 
   Post.create({
     kind,
     material,
     location: { coordinates: [location[0], location[1]] },
     description,
-    image,
+    image: req.file ? req.file.path : undefined,
     userCreator
   })
     .then((response) => res.status(201).json(response))
