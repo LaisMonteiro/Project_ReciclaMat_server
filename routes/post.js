@@ -10,8 +10,8 @@ router.get('/', function (req, res, next) {
 
   Post.find(kind ? { kind } : {})
     .populate('userCreator')
-    .then((post) => {
-      res.json({ post });
+    .then((posts) => {
+      res.json( posts );
     })
     .catch((error) => next(error));
 });
@@ -37,11 +37,7 @@ router.post('/', uploader.single('image'), (req, res, next) => {
     image,
     userCreator
   })
-    .then((response) =>
-      res.status(201).json({
-        response
-      })
-    )
+    .then((response) => res.status(201).json(response))
     .catch((error) => {
       console.log(error);
       res.status(400).json({ message: error.message });
