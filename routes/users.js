@@ -6,7 +6,11 @@ const bcrypt = require('bcryptjs');
 const uploader = require('./../file-uploader');
 
 router.get('/', function (req, res, next) {
-  res.json({ message: 'WORKIN! USER API' });
+  User.find()
+    .then((user) => {
+      res.json({ user });
+    })
+    .catch((error) => next(error));
 });
 
 router.post('', uploader.single('avatar'), async (req, res) => {
