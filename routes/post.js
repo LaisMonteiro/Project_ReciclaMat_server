@@ -10,21 +10,15 @@ router.get('/', function (req, res, next) {
 
   Post.find(kind ? { kind } : {})
     .populate('userCreator')
+    .populate('comment')
     .then((posts) => {
-      res.json( posts );
+      res.json(posts);
     })
     .catch((error) => next(error));
 });
 
 router.post('/', uploader.single('image'), (req, res, next) => {
-  const {
-    kind,
-    material,
-    description,
-    userCreator,
-    timestamps,
-    updatedAt
-  } = req.body;
+  const { kind, material, description, userCreator, timestamps, updatedAt } = req.body;
   const image = req.file.path;
   const location = req.body.location.split(',');
   console.log('file is: ', req.file);
