@@ -7,7 +7,7 @@ const PostSchema = new mongoose.Schema({
   },
   material: {
     type: String,
-    enum: ['glass bottles', 'newspaper', 'white paper', 'cartboard', 'aluminum', 'plastic bottles']
+    enum: ['glass', 'paper', 'plastic', 'metal', 'wood', 'fabric']
   },
   location: {
     type: {
