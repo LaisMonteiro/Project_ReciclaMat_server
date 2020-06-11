@@ -9,8 +9,9 @@ router.get('/', function (req, res, next) {
   const kind = req.query.kind;
 
   Post.find(kind ? { kind } : {})
-    .sort({'timestamps.updatedAt': -1})
+    .sort({ 'timestamps.updatedAt': -1 })
     .populate('userCreator')
+    .populate('comment')
     .then((posts) => {
       res.json(posts);
     })

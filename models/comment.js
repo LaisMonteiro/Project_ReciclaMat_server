@@ -10,11 +10,11 @@ const CommentSchema = new mongoose.Schema({
     type: String,
     maxlength: 1000
   },
-  post: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Post'
-  },
+  // post: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   required: true,
+  //   ref: 'Post'
+  // },
   timestamps: {
     createdAt: {
       type: Date,
